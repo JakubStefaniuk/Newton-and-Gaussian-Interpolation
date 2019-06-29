@@ -1,25 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interpolate;
 
 import java.lang.*;
 import java.util.*;
 /**
  *
- * @author 99xku
+ * Polynomial class - polynomial is represented in a list of float values - it's
+ * coefficients.
  */
 public class Polynomial {
     private String name;
     private List<Float> coefficients;
     private int polyDegree;
+    //default constructor
     public Polynomial(){
         name="function";
         polyDegree=0;
         coefficients = new ArrayList();
     }
+    //constructor using polynomials coefficients with exponents in ascending 
+    //order, similar constructor, taking also function name down below
     public Polynomial(final ArrayList<Float> coefficients){
         name="function";
         polyDegree=coefficients.size()-1;
@@ -30,6 +29,7 @@ public class Polynomial {
         polyDegree=coefficients.size()-1;
         this.coefficients=(List<Float>) coefficients.clone();
     }
+    //copying constructor
     public Polynomial(Polynomial copied){
         this.name=copied.name;
         this.coefficients=(List<Float>)copied.getCoef().clone();
@@ -51,6 +51,7 @@ public class Polynomial {
         output.deleteCharAt(output.length()-2);
         return output.toString();
     }
+    //method adding second polynomial to this
     public void addPoly(final Polynomial second){
         int i = 0;
         ArrayList<Float>output=new ArrayList<>();
@@ -67,6 +68,8 @@ public class Polynomial {
         this.coefficients=output;
         this.polyDegree=output.size()-1;
     }
+    //multiplying polynomial by constant float value mBy, used further in 
+    //Newton interpolation
     public void multiplyByConst(final float mBy){
         ListIterator it = coefficients.listIterator();
         while(it.hasNext()){
@@ -74,7 +77,7 @@ public class Polynomial {
             it.set(((float)o)*mBy);
         }
     }
-    //multiply polynomial by (x-a)
+    //multiply polynomial by binomial (x-a)
     public void multiplyByBinomial(float a){
         ArrayList<Float>coefCopy= (ArrayList<Float>)(((ArrayList<Float>)coefficients).clone());
         coefficients.add(coefficients.get(this.getDegree()));
