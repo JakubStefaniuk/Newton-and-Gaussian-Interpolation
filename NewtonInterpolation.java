@@ -13,9 +13,13 @@ import java.util.Set;
 
 /**
  *
- * note that to get a polynomial of degree n, you have to...
+ * implementation of class providing Newton interpolation - using differential
+ * quotients
+ * 
  */
 public class NewtonInterpolation implements Interpolation{
+    //input: HashMap of pairs from Cartesian plane corresponding to pairs from 
+    //a polynomial, returns Polynomial instance
     @Override
     public Polynomial interpolate(HashMap<Float, Float> XYvalues) {
         int i = 0,k;
