@@ -42,14 +42,13 @@ public class NewtonInterpolation implements Interpolation{
         }
         //transforming Newton's base coefficients to polynomial
         //natural representation
-        int deg = 0;
         ArrayList<Float>tmp = new ArrayList<>();
         tmp.add(0.0f);
         Polynomial output = new Polynomial(tmp);
         tmp.set(0, 1.0f);
         Polynomial nextComponent = new Polynomial(tmp);
         Polynomial nextComponentCopy = new Polynomial(nextComponent);
-        nextComponentCopy.setDegree(deg);
+        nextComponentCopy.setDegree(0);
         nextComponentCopy.multiplyByConst(newtonBaseCoefs.get(0));
         output.addPoly(nextComponentCopy);
         for(i = 1; i < newtonBaseCoefs.size();i++){
@@ -58,7 +57,6 @@ public class NewtonInterpolation implements Interpolation{
             nextComponentCopy.multiplyByConst(newtonBaseCoefs.get(i));
             output.addPoly(nextComponentCopy);
         }
-        output.setDegree(newtonBaseCoefs.size()-1);
         return output;
     }
     

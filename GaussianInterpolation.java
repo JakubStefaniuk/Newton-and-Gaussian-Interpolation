@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package interpolate;
 
 import java.util.ArrayList;
@@ -49,12 +45,46 @@ public class GaussianInterpolation implements Interpolation {
                }
            }
            //solving sytem of linear equations
-           //
-           //
-           //some GE or sth
+           if(!gaussElimination(linearMatrix)){
+               System.out.println("Linear quation system is not row independent");
+               return new Polynomial();
+           } 
            for(i = pairs.size()-1; i >= 0; i--){
-               naturalCoefs.add(linearMatrix[i][i]);
+               naturalCoefs.add(linearMatrix[i][pairs.size()]/linearMatrix[i][i]);
            }
            return new Polynomial(naturalCoefs);
+    }
+    public boolean gaussElimination(float [][] Matrix){
+        int k;
+        int r = Matrix.length;
+        int c = Matrix[0].length;
+        for(int i = 0; i < r; i++){
+                if(Matrix[i][i]!=0.0f){     
+                    for(int j = 0; j < r; j++){
+                        if(i!=j){
+                            float eliminationCoef=Matrix[j][i]/Matrix[i][i];
+                            for(k = 0; k < c; k++){
+                                Matrix[j][k]-=Matrix[i][k]*eliminationCoef;
+                            }
+                        }
+                    }
+                }
+                else{
+                    for(k = i; k < r; k++){
+                        if(Matrix[k][i]==0.0f) continue;
+                        else break;
+                    }
+                    if(k>=r){
+                        return false;
+                    }
+                    else{
+                        float tmp[] = Matrix[i];
+                        Matrix[i] = Matrix[k];
+                        Matrix[k] = tmp;
+                        i--;
+                    }
+                }
+        }
+        return true;
     }
 }
