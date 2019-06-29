@@ -76,12 +76,12 @@ public class Polynomial {
     }
     //multiply polynomial by (x-a)
     public void multiplyByBinomial(float a){
-        this.polyDegree+=1;
         ArrayList<Float>coefCopy= (ArrayList<Float>)(((ArrayList<Float>)coefficients).clone());
-        coefficients.add(coefficients.get(this.getDegree()-1));
-        for(int i = 1; i < this.getDegree();i++){
-             coefficients.set(i, coefficients.get(i-1)-a*coefficients.get(i));   
+        coefficients.add(coefficients.get(this.getDegree()));
+        for(int i = 1; i < this.getDegree()+1;i++){
+             coefficients.set(i, coefCopy.get(i-1)-a*coefCopy.get(i));   
         }
+        this.polyDegree+=1;
         coefficients.set(0, -coefficients.get(0)*a);
     }
     public String getName(){return name;}
@@ -89,4 +89,3 @@ public class Polynomial {
     public int getDegree(){return polyDegree;}
     public void setDegree(int deg){this.polyDegree=deg;}
 }
-
